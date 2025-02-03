@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Laporan Barang Intra</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+                font-size: 11px;
+            }
+
+            .paper {
+                padding: 15mm;
+            }
+
+            .header {
+                width: 100%;
+                padding-bottom: 5mm;
+                position: relative;
+                border-bottom: 1px solid black;
+            }
+
+            .header img {
+                position: absolute;
+                height: 18mm;
+                width: 15.73mm;
+                top: 0;
+                left: 0;
+            }
+
+            .header .kop-text > * {
+                font-weight: bold;
+                font-size: 12px;
+                text-align: center;
+                line-height: 1.5;
+            }
+
+            .badan-laporan {
+                width: 100%;
+                margin-top: 10mm;
+            }
+
+            .badan-laporan .heading h6 {
+                font-weight: bold;
+                text-align: center;
+                line-height: 1.5;
+            }
+
+            .badan-laporan .tabel-barang {
+                width: 100%;
+                margin-top: 5mm;
+                border-collapse: collapse;
+            }
+
+            .badan-laporan .tabel-barang thead tr > *,
+            .badan-laporan .tabel-barang tbody tr > *,
+            .badan-laporan .tabel-barang tfoot tr > * {
+                border: 1px solid black;
+                padding: 2px 4px;
+            }
+
+            .badan-laporan .tabel-barang thead th {
+                background-color: #ffff;
+            }
+
+            .text-right {
+                text-align: right;
+            }
+
+            .text-center {
+                text-align: center;
+            }
+
+            .footer {
+                margin-top: 10mm;
+                text-align: right;
+            }
+
+            .footer-content {
+                display: inline-block;
+                text-align: left;
+            }
+
+            .col-number {
+                font-style: italic;
+                font-size: 9px;
+                text-align: center;
+                color: #666;
+            }
+            
+            .col-highlight {
+                background-color: #D9D9D9;
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="paper" id="el-to-print">
+            <div class="header">
+                <img src="../assets/logo-05.png" alt="Logo BEM PKN STAN">
+                <div class="kop-text">
+                    <h5>BADAN EKSEKUTIF MAHASISWA</h5>
+                    <h5>POLITEKNIK KEUANGAN NEGARA STAN</h5>
+                    <h5>KEMENTERIAN KEUANGAN</h5>
+                </div>
+            </div>
+            
+            <div class="badan-laporan">
+                <div class="heading">
+                    <h6>LAPORAN BARANG INTRA</h6>
+                    <h6>Periode: 1 Desember 2023 s.d. 20 Desember 2024</h6>
+                </div>
+
+                <table class="tabel-barang">
+                    <thead>
+                        <tr>
+                            <th rowspan="2" colspan="1"></th>
+                            <th rowspan="2" colspan="2">AKUN NERACA / ITEM BARANG</th>
+                            <th rowspan="3">Satuan</th>
+                            <th rowspan="2" colspan="2">SALDO AWAL 1 Desember 2023</th>
+                            <th colspan="4">MUTASI</th>
+                            <th rowspan="2" colspan="2">SALDO AKHIR 20 Desember 2024</th>
+                        </tr>
+                        <tr>
+                          <th colspan="2">BERTAMBAH</th>
+                          <th colspan="2">BERKURANG</th>
+                        </tr>
+                        <tr>
+                            <th>Kode BAS</th>
+                            <th>Kode</th>
+                            <th>Uraian</th>
+                            <th>Kuantitas</th>
+                            <th>Nilai</th>
+                            <th>Kuantitas</th>
+                            <th>Nilai</th>
+                            <th>Kuantitas</th>
+                            <th>Nilai</th>
+                            <th>Kuantitas</th>
+                            <th>Nilai</th>
+                        </tr>
+                        <tr class="col-number">
+                            <td>0</td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>6</td>
+                            <td>7</td>
+                            <td>8</td>
+                            <td>9</td>
+                            <td>10</td>
+                            <td>11</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- 117111 Persediaan -->
+                        <tr class="col-highlight">
+                            <td>117111 - Persediaan</td>
+                            <td>117111</td>
+                            <td>Persediaan</td>
+                            <td class="text-center"></td>
+                            <td class="text-right">27</td>
+                            <td class="text-right">1.077.750</td>
+                            <td class="text-right">85</td>
+                            <td class="text-right">903.741</td>
+                            <td class="text-right">8</td>
+                            <td class="text-right">40.000</td>
+                            <td class="text-right">104</td>
+                            <td class="text-right">1.941.491</td>
+                        </tr>
+                        <tr>
+                            <td>Kode barang</td>
+                            <td>PROP/BEND.BEM/001/BEM/2017 (99008)</td>
+                            <td>Bendera BEM PKN STAN</td>
+                            <td class="text-center">Buah</td>
+                            <td class="text-right">1</td>
+                            <td class="text-right">500.000</td>
+                            <td class="text-right">0</td>
+                            <td class="text-right">0</td>
+                            <td class="text-right">0</td>
+                            <td class="text-right">0</td>
+                            <td class="text-right">1</td>
+                            <td class="text-right">500.000</td>
+                        </tr>
+                        <tr>
+                            <td>Kode barang</td>
+                            <td>PROP.KBL.MIC/006/BEM/2017 (3006)</td>
+                            <td>Kabel Mikrofon</td>
+                            <td class="text-center">Buah</td>
+                            <td class="text-right">1</td>
+                            <td class="text-right">15.000</td>
+                            <td class="text-right">0</td>
+                            <td class="text-right">0</td>
+                            <td class="text-right">0</td>
+                            <td class="text-right">0</td>
+                            <td class="text-right">1</td>
+                            <td class="text-right">15.000</td>
+                        </tr>
+
+                        <!-- 132111 Peralatan dan Mesin -->
+                        <tr class="col-highlight">
+                          <td>132111 Peralatan dan Mesin</td>
+                          <td>132111</td>
+                          <td>Peralatan dan Mesin</td>
+                          <td class="text-center"></td>
+                          <td class="text-right">61</td>
+                          <td class="text-right">64.009.254</td>
+                          <td class="text-right">12</td>
+                          <td class="text-right">10.018.040</td>
+                          <td class="text-right">36</td>
+                          <td class="text-right">14.689.900</td>
+                          <td class="text-right">37</td>
+                          <td class="text-right">59.337.394</td>
+                      </tr>
+                      <tr>
+                          <td>Kode barang</td>
+                          <td>PROP/PAPAN.SCORE/001/BEM/2023</td>
+                          <td>Papan Score</td>
+                          <td class="text-center">Buah</td>
+                          <td class="text-right">1</td>
+                          <td class="text-right">90.000</td>
+                          <td class="text-right">0</td>
+                          <td class="text-right">0</td>
+                          <td class="text-right">1</td>
+                          <td class="text-right">90.000</td>
+                          <td class="text-right">0</td>
+                          <td class="text-right">0</td>
+                      </tr>
+                      <tr>
+                          <td>Kode barang</td>
+                          <td>PROP/PAPAN.SCORE/002/BEM/2023</td>
+                          <td>Papan Score</td>
+                          <td class="text-center">Buah</td>
+                          <td class="text-right">1</td>
+                          <td class="text-right">90.000</td>
+                          <td class="text-right">0</td>
+                          <td class="text-right">0</td>
+                          <td class="text-right">1</td>
+                          <td class="text-right">90.000</td>
+                          <td class="text-right">0</td>
+                          <td class="text-right">0</td>
+                      </tr>
+                      <tr>
+                          <td>Kode barang</td>
+                          <td>PROP/PAPAN.SCORE/003/BEM/2023</td>
+                          <td>Papan Score</td>
+                          <td class="text-center">Buah</td>
+                          <td class="text-right">1</td>
+                          <td class="text-right">90.000</td>
+                          <td class="text-right">0</td>
+                          <td class="text-right">0</td>
+                          <td class="text-right">1</td>
+                          <td class="text-right">90.000</td>
+                          <td class="text-right">0</td>
+                          <td class="text-right">0</td>
+                      </tr>
+                    </tbody>
+
+                    <!-- <tfoot>
+                        <tr>
+                            <td colspan="3" class="text-right"><strong>Total</strong></td>
+                            <td class="text-right"><strong>4</strong></td>
+                            <td class="text-right"><strong>10.765.000</strong></td>
+                            <td class="text-right"><strong>0</strong></td>
+                            <td class="text-right"><strong>0</strong></td>
+                            <td class="text-right"><strong>0</strong></td>
+                            <td class="text-right"><strong>0</strong></td>
+                            <td class="text-right"><strong>4</strong></td>
+                            <td class="text-right"><strong>10.765.000</strong></td>
+                        </tr>
+                    </tfoot> -->
+                </table>
+
+                <div class="footer">
+                    <div class="footer-content">
+                        <p>Tangerang Selatan, 20 Desember 2024</p>
+                        <p>Menteri Keuangan</p>
+                        <br>
+                        <img src="../assets/kementerian-1.png" style="width: 30mm; height: 30mm;">
+                        <br>
+                        <p>Budi Aja</p>
+                        <p>NPM 123456789</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
