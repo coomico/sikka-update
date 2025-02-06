@@ -76,16 +76,6 @@
                 text-align: center;
             }
 
-            .footer {
-                margin-top: 10mm;
-                text-align: right;
-            }
-
-            .footer-content {
-                display: inline-block;
-                text-align: left;
-            }
-
             .col-number {
                 font-style: italic;
                 font-size: 9px;
@@ -106,7 +96,7 @@
                 <div class="kop-text">
                     <h5>BADAN EKSEKUTIF MAHASISWA</h5>
                     <h5>POLITEKNIK KEUANGAN NEGARA STAN</h5>
-                    <h5 id="namaKementerian">KEMENTERIAN</h5>
+                    <h5>KEMENTERIAN KEUANGAN</h5>
                 </div>
             </div>
             
@@ -161,24 +151,12 @@
                     <tbody id="laporanBody">
                     </tbody>
                 </table>
-
-                <div class="footer">
-                    <div id="sign" class="footer-content">
-                        <p class="cityDate"></p>
-                        <p class="jabatanPembuat"></p>
-                        <br>
-                        <img src="../assets/kementerian-1.png" style="width: 30mm; height: 30mm;">
-                        <br>
-                        <p class="namaPembuat"></p>
-                        <p class="npmPembuat">NPM</p>
-                    </div>
-                </div>
             </div>
         </div>
     
         <script>
             const digitFormatter = digit => digit.toLocaleString('id-ID');
-            const dateFormatter = (date) => {
+            const dateFormatter = date => {
                 return date.toLocaleDateString('id-ID', {
                     day: 'numeric',
                     month: 'long',
@@ -187,17 +165,11 @@
             };
 
             document.addEventListener("DOMContentLoaded", function() {
-                const { nama, npm, kementerian, jabatan, periodeAwal, periodeAkhir } = JSON.parse(localStorage.getItem('metadata') || {});
-                const sign = document.getElementById('sign');
-                sign.querySelector('.cityDate').innerText = `Tangerang Selatan, ${dateFormatter(new Date())}`;
-                sign.querySelector('.jabatanPembuat').innerText = `${jabatan} ${kementerian}`;
-                sign.querySelector('.namaPembuat').innerText = nama;
-                sign.querySelector('.npmPembuat').innerText += ` ${npm}`;
+                const { periodeAwal, periodeAkhir } = JSON.parse(localStorage.getItem('metadata') || {});
 
-                document.getElementById('namaKementerian').innerText += ` ${kementerian.toUpperCase()}`;
                 document.getElementById('periodeLaporan').innerText += ` ${dateFormatter(new Date(periodeAwal))} s.d. ${dateFormatter(new Date(periodeAkhir))}`;
-                document.getElementById('periodeAwal').innerText += ` ${dateFormatter(new Date(periodeAwal))}`;
-                document.getElementById('periodeAkhir').innerText += ` ${dateFormatter(new Date(periodeAkhir))}`;
+                document.getElementById('periodeAwal').innerText += ` ${dateFormatter(new Date(periodeAwal)).toUpperCase()}`;
+                document.getElementById('periodeAkhir').innerText += ` ${dateFormatter(new Date(periodeAkhir)).toUpperCase()}`;
 
                 const dataBarang = JSON.parse(localStorage.getItem('barangData')) || [];
                 const laporanBody = document.getElementById("laporanBody");

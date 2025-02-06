@@ -114,7 +114,7 @@
             <div class="badan-laporan">
                 <div class="heading">
                     <h6>LAPORAN PENYUSUTAN EKSTRAKOMPTA</h6>
-                    <h6>Periode: 20 Desember 2024</h6>
+                    <h6 id="periodeLaporan">Periode:</h6>
                 </div>
 
                 <table class="tabel-barang">
@@ -122,7 +122,7 @@
                         <tr>
                             <th rowspan="2" colspan="2">LIST BARANG ESKTRAKOMPTABEL (DI LUAR NERACA)</th>
                             <th rowspan="3">Satuan</th>
-                            <th colspan="7">SALDO AKHIR 20 DESEMBER 2024</th>
+                            <th colspan="7" id="periodeAkhir">SALDO AKHIR</th>
                         </tr>
                         <tr>
                             <th rowspan="2">Kuantitas</th>
@@ -151,133 +151,78 @@
                             <td>10 = 5-9</td>
                         </tr>
                     </thead>
-                    <tbody>
-                        <!-- Highlight -->
-                        <tr class="col-highlight">
-                            <td></td>
-                            <td></td>
-                            <td class="text-center"></td>
-                            <td class="text-right"></td>
-                            <td class="text-right">4.786.500</td>
-                            <td class="text-right">1.854.125</td>
-                            <td class="text-right">948.708</td>
-                            <td class="text-right">0</td>
-                            <td class="text-right">2.802.833</td>
-                            <td class="text-right">1.983.667</td>
-                        </tr>
-                        <tr>
-                            <td>PROP/KALK.SCNT/001/BEM/2023</td>
-                            <td>Kalkulator Scientific</td>
-                            <td class="text-center">Buah</td>
-                            <td class="text-right">1</td>
-                            <td class="text-right">75.000</td>
-                            <td class="text-right">18.750</td>
-                            <td class="text-right">18.750</td>
-                            <td class="text-right">0</td>
-                            <td class="text-right">37.500</td>
-                            <td class="text-right">37.500</td>
-                        </tr>
-                        <tr>
-                            <td>PROP/KALK.SCNT/002/BEM/2023</td>
-                            <td>Kalkulator Scientific</td>
-                            <td class="text-center">Buah</td>
-                            <td class="text-right">1</td>
-                            <td class="text-right">75.000</td>
-                            <td class="text-right">18.750</td>
-                            <td class="text-right">18.750</td>
-                            <td class="text-right">0</td>
-                            <td class="text-right">37.500</td>
-                            <td class="text-right">37.500</td>
-                        </tr>
-                        <tr>
-                            <td>PROP/KALK.SCNT/003/BEM/2023</td>
-                            <td>Kalkulator Scientific</td>
-                            <td class="text-center">Buah</td>
-                            <td class="text-right">1</td>
-                            <td class="text-right">75.000</td>
-                            <td class="text-right">18.750</td>
-                            <td class="text-right">18.750</td>
-                            <td class="text-right">0</td>
-                            <td class="text-right">37.500</td>
-                            <td class="text-right">37.500</td>
-                        </tr>
-                        <tr>
-                            <td>PROP/KALK.SCNT/004/BEM/2023</td>
-                            <td>Kalkulator Scientific</td>
-                            <td class="text-center">Buah</td>
-                            <td class="text-right">1</td>
-                            <td class="text-right">80.000</td>
-                            <td class="text-right">20.000</td>
-                            <td class="text-right">20.000</td>
-                            <td class="text-right">0</td>
-                            <td class="text-right">40.000</td>
-                            <td class="text-right">40.000</td>
-                        </tr>
-                        <tr>
-                            <td>PROP/KALK.SCNT/005/BEM/2023</td>
-                            <td>Kalkulator Scientific</td>
-                            <td class="text-center">Buah</td>
-                            <td class="text-right">1</td>
-                            <td class="text-right">80.000</td>
-                            <td class="text-right">20.000</td>
-                            <td class="text-right">20.000</td>
-                            <td class="text-right">0</td>
-                            <td class="text-right">40.000</td>
-                            <td class="text-right">40.000</td>
-                        </tr>
-                        <tr>
-                            <td>PROP/KALK.SCNT/006/BEM/2023</td>
-                            <td>Kalkulator Scientific</td>
-                            <td class="text-center">Buah</td>
-                            <td class="text-right">1</td>
-                            <td class="text-right">57.500</td>
-                            <td class="text-right">14.375</td>
-                            <td class="text-right">14.375</td>
-                            <td class="text-right">0</td>
-                            <td class="text-right">28.750</td>
-                            <td class="text-right">28.750</td>
-                        </tr>
-                        <tr>
-                            <td>PROP/KALK.SCNT/007/BEM/2023</td>
-                            <td>Kalkulator Scientific</td>
-                            <td class="text-center">Buah</td>
-                            <td class="text-right">1</td>
-                            <td class="text-right">57.500</td>
-                            <td class="text-right">14.375</td>
-                            <td class="text-right">14.375</td>
-                            <td class="text-right">0</td>
-                            <td class="text-right">28.750</td>
-                            <td class="text-right">28.750</td>
-                        </tr>
+                    <tbody id="laporanBody">
                     </tbody>
-
-                    <!-- <tfoot>
-                        <tr>
-                            <td colspan="3" class="text-right"><strong>Total</strong></td>
-                            <td class="text-right"><strong>4</strong></td>
-                            <td class="text-right"><strong>10.765.000</strong></td>
-                            <td class="text-right"><strong>0</strong></td>
-                            <td class="text-right"><strong>0</strong></td>
-                            <td class="text-right"><strong>0</strong></td>
-                            <td class="text-right"><strong>0</strong></td>
-                            <td class="text-right"><strong>4</strong></td>
-                            <td class="text-right"><strong>10.765.000</strong></td>
-                        </tr>
-                    </tfoot> -->
                 </table>
-
-                <div class="footer">
-                    <div class="footer-content">
-                        <p>Tangerang Selatan, 20 Desember 2024</p>
-                        <p>Menteri Keuangan</p>
-                        <br>
-                        <img src="../assets/kementerian-1.png" style="width: 30mm; height: 30mm;">
-                        <br>
-                        <p>Budi Aja</p>
-                        <p>NPM 123456789</p>
-                    </div>
-                </div>
             </div>
         </div>
+    
+        <script>
+            const digitFormatter = digit => digit.toLocaleString('id-ID');
+            const dateFormatter = date => {
+                return date.toLocaleDateString('id-ID', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                });
+            };
+
+            document.addEventListener("DOMContentLoaded", function() {
+                const { periodeLaporan } = JSON.parse(localStorage.getItem('metadata') || {});
+
+                document.getElementById('periodeLaporan').innerText += ` ${dateFormatter(new Date(periodeLaporan))}`;
+                document.getElementById('periodeAkhir').innerText += ` ${dateFormatter(new Date(periodeLaporan)).toUpperCase()}`;
+
+                const dataBarang = JSON.parse(localStorage.getItem('barangData')) || [];
+                const laporanBody = document.getElementById("laporanBody");
+
+                let totalKuantitas = 0, totalNilai = 0, totalSaldoAwal = 0, totalBebanPenyusutan = 0, totalKoreksi = 0;
+                
+                dataBarang.forEach(barang => {
+                    totalKuantitas += barang.kuantitas;
+                    totalNilai += barang.nilai;
+                    totalSaldoAwal += barang.saldoAwal;
+                    totalBebanPenyusutan += barang.bebanPenyusutan;
+                    totalKoreksi += barang.koreksi;
+                });
+                
+                const grandTotal = totalSaldoAwal + totalBebanPenyusutan + totalKoreksi;
+                const totalNilaiBuku = totalNilai - grandTotal;
+                
+                laporanBody.innerHTML += `
+                    <tr class="col-highlight">
+                        <td></td>
+                        <td></td>
+                        <td class="text-center"></td>
+                        <td class="text-right"></td>
+                        <td class="text-right">${digitFormatter(totalNilai)}</td>
+                        <td class="text-right">${digitFormatter(totalSaldoAwal)}</td>
+                        <td class="text-right">${digitFormatter(totalBebanPenyusutan)}</td>
+                        <td class="text-right">${digitFormatter(totalKoreksi)}</td>
+                        <td class="text-right">${digitFormatter(grandTotal)}</td>
+                        <td class="text-right">${digitFormatter(totalNilaiBuku)}</td>
+                    </tr>
+                `;
+
+                dataBarang.forEach(barang => {
+                    const total = barang.saldoAwal + barang.bebanPenyusutan + barang.koreksi;
+                    const nilaiBuku = barang.nilai - total;
+                    laporanBody.innerHTML += `
+                        <tr>
+                            <td>${barang.kode}</td>
+                            <td>${barang.uraian}</td>
+                            <td class="text-center">${barang.satuan}</td>
+                            <td class="text-right">${digitFormatter(barang.kuantitas)}</td>
+                            <td class="text-right">${digitFormatter(barang.nilai)}</td>
+                            <td class="text-right">${digitFormatter(barang.saldoAwal)}</td>
+                            <td class="text-right">${digitFormatter(barang.bebanPenyusutan)}</td>
+                            <td class="text-right">${digitFormatter(barang.koreksi)}</td>
+                            <td class="text-right">${digitFormatter(total)}</td>
+                            <td class="text-right">${digitFormatter(nilaiBuku)}</td>
+                        </tr>
+                    `;
+                });
+            });
+        </script>
     </body>
 </html>
