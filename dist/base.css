@@ -1,0 +1,405 @@
+:root {
+  --primary-color: #213555;    /* Dark blue */
+  --secondary-color: #3E5879;  /* Medium blue */
+  --accent-color: #D8C4B6;     /* Light brown */
+  --light-color: #F5EFE7;      /* Off white */
+  --danger-color: #e74c3c;     
+  --success-color: #27ae60;    
+  --card-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  --hover-shadow: rgba(0, 0, 0, 0.15) 0px 8px 24px;
+}
+
+body {
+  background-color: #f5f6fa;
+  color: var(--primary-color);
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+h2 {
+  color: var(--primary-color);
+  font-weight: 600;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+h2:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: var(--accent-color);
+  border-radius: 2px;
+}
+
+.group-entry, .card-style {
+  border: none;
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: white;
+  border-radius: 12px;
+  position: relative;
+  box-shadow: var(--card-shadow);
+  transition: all 0.3s ease;
+}
+
+.group-entry:hover {
+  box-shadow: var(--hover-shadow);
+}
+
+/* Group Actions Styles */
+.group-actions {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 10;
+}
+
+.group-actions .dropdown-toggle {
+  background: var(--secondary-color);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.group-actions .dropdown-toggle:hover,
+.group-actions .dropdown-toggle:focus {
+  background: var(--primary-color);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.group-actions .dropdown-toggle::after {
+  display: none;
+}
+
+.group-actions .dropdown-menu {
+  min-width: 160px;
+  padding: 8px;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  background: white;
+  margin-top: 5px;
+  transform-origin: top right;
+  animation: dropdownFade 0.2s ease;
+}
+
+.group-actions .dropdown-menu li {
+  margin: 2px 0;
+}
+
+.group-actions .dropdown-item {
+  padding: 8px 12px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  color: var(--primary-color);
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  line-height: 1.5;
+}
+
+.group-actions .dropdown-item i {
+  font-size: 14px;
+  width: 16px;
+  text-align: center;
+  margin-right: 4px;
+}
+
+.group-actions .dropdown-item:hover {
+  background-color: var(--light-color);
+}
+
+.group-actions .dropdown-item.text-danger {
+  color: var(--danger-color);
+}
+
+.group-actions .dropdown-item.text-danger:hover {
+  background-color: #fee2e2;
+}
+
+.group-actions .dropdown-divider {
+  margin: 4px 0;
+  border-color: #e5e7eb;
+}
+
+@keyframes dropdownFade {
+  from {
+      opacity: 0;
+      transform: translate(0px, 30px);
+  }
+  to {
+      opacity: 1;
+      transform: translate(0px, 34px);
+  }
+}
+
+/* Table Container Styles */
+.table-container-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  margin: 20px 0;
+}
+
+.table-container {
+  display: inline-block;
+  min-width: 100%;
+  background: white;
+  padding: 1px;
+}
+
+.table {
+  margin: 0;
+  background: white;
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+}
+
+/* Table Header Styles */
+.table thead {
+  background-color: var(--secondary-color);
+}
+
+.table thead th {
+  color: white;
+  font-weight: 500;
+  text-align: center;
+  vertical-align: middle;
+  padding: 15px 12px;
+  border: 1px solid #4a6278;
+  position: relative;
+  background-color: var(--secondary-color);
+  min-height: 50px;
+  white-space: normal;
+}
+
+.table thead th:first-child {
+  min-width: 100px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.table td:not(:first-child) {
+  padding: 8px 12px;
+}
+
+.table thead th[rowspan], 
+.table thead th[colspan] {
+  border: 1px solid #4a6278;
+}
+
+.table thead tr:last-child th {
+  border-bottom: 2px solid #4a6278;
+}
+
+/* Table Body Styles */
+.table tbody td {
+  padding: 12px;
+  vertical-align: middle;
+  border: 1px solid #e5e7eb;
+  background-color: white;
+}
+
+.table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: #f8fafc;
+}
+
+/* Form Controls */
+.form-control {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 8px 12px;
+  transition: all 0.2s ease;
+}
+
+.form-control:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+/* Table Input Fields */
+.table .form-control {
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  padding: 8px 12px;
+  transition: all 0.2s ease;
+  background-color: #fff;
+}
+
+.table .form-control:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+  background-color: #fff;
+}
+
+/* Button Styles */
+.btn {
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.btn-success {
+  background-color: var(--success-color);
+  border: none;
+}
+
+.btn-success:hover {
+  background-color: #219a52;
+  transform: translateY(-1px);
+}
+
+.btn-danger {
+  background-color: var(--danger-color);
+  border: none;
+}
+
+.btn-danger:hover {
+  background-color: #c0392b;
+}
+
+.btn-primary {
+  background-color: var(--accent-color);
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #2980b9;
+}
+
+.btn-secondary {
+  background-color: var(--secondary-color);
+  border: none;
+}
+
+.btn-secondary:hover {
+  background-color: #2c3e50;
+}
+
+.btn-info {
+  background-color: #17a2b8;
+  border: none;
+  color: white;
+}
+
+.btn-info:hover {
+  background-color: #138496;
+  color: white;
+}
+
+/* Row Actions */
+.row-actions {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  align-items: center;
+}
+
+.row-actions button {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  margin: 0 auto;
+}
+
+.row-actions button i {
+  font-size: 0.8rem;
+}
+
+.row-actions .btn-primary {
+  background-color: var(--secondary-color);
+  border: none;
+}
+
+.row-actions .btn-primary:hover {
+  background-color: var(--primary-color);
+  transform: translateY(-1px);
+}
+
+.row-actions .btn-danger:hover {
+  transform: translateY(-1px);
+}
+
+/* Action Buttons Container */
+.action-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.action-buttons .btn {
+  padding: 10px 20px;
+}
+
+/* Form Labels */
+.form-label {
+  font-weight: 500;
+  color: var(--secondary-color);
+  margin-bottom: 6px;
+}
+
+/* Header group separation */
+.table thead th[colspan="2"] {
+  border-right: 2px solid #4a6278;
+}
+
+.table thead th[colspan="4"] {
+  position: relative;
+}
+
+.table thead th[colspan="4"]::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: #4a6278;
+}
+
+/* Table Button Styles */
+.table .btn-danger {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  margin: 0 auto;
+}
+
+.table .btn-danger i {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}

@@ -1,0 +1,25 @@
+.table .form-control.kode,
+.table .form-control.uraian {
+  min-width: 180px;
+}
+
+.table .form-control.satuan {
+  min-width: 80px;
+  text-align: center;
+}
+
+.table .form-control.kuantitasAwal,
+.table .form-control.kuantitasTambah,
+.table .form-control.kuantitasKurang {
+  min-width: 100px;
+  text-align: right;
+  font-family: 'Consolas', monospace;
+}
+
+.table .form-control.nilaiAwal,
+.table .form-control.nilaiTambah,
+.table .form-control.nilaiKurang {
+  min-width: 150px;
+  text-align: right;
+  font-family: 'Consolas', monospace;
+}

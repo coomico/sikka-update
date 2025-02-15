@@ -5,68 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Input Data Penyusutan Ekstrakompta</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-      .group-entry, .card-style {
-          border: 1px solid #007bff;
-          padding: 15px;
-          margin-bottom: 15px;
-          background-color: #f8f9fa;
-          border-radius: 10px;
-          position: relative;
-      }
-      .remove-group {
-          position: absolute;
-          top: 10px;
-          right: 10px;
-          background: red;
-          color: white;
-          border: none;
-          border-radius: 50%;
-          width: 25px;
-          height: 25px;
-          font-size: 16px;
-          text-align: center;
-          line-height: 20px;
-          cursor: pointer;
-      }
-      .table-container-wrapper {
-          width: 100%;
-          overflow-x: auto;
-      }
-      .table-container {
-          display: inline-block;
-          min-width: 100%;
-      }
-      table {
-          width: max-content;
-          border-collapse: collapse;
-          white-space: nowrap;
-      }
-      th, td {
-          padding: 8px;
-          border: 1px solid #ddd;
-          text-align: center;
-      }
-      input.form-control {
-          min-width: 150px;
-      }
-      input.form-control.satuan {
-          min-width: 60px;
-      }
-      input.form-control.kuantitas {
-          min-width: 50px;
-          text-align: right;
-      }
-      input.form-control.nilai,
-      input.form-control.saldoAwal,
-      input.form-control.bebanPenyusutan,
-      input.form-control.koreksi {
-          text-align: right;
-      }
-    </style>
+    <link href="../dist/base.css" rel="stylesheet">
+    <link href="../dist/penyusutan.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://kit.fontawesome.com/d0daa1cbe3.js" crossorigin="anonymous"></script>
+    <script src="../dist/xlsx.bundle.js"></script>
+    <script src="../dist/cell.style.js"></script>
+    <script src="../dist/utils.js"></script>
 </head>
 <body>
-    <div class="container-xl mt-4">
+    <div class="container-lg mt-4 mb-4 px-4">
         <h2 class="text-center mb-4">Input Data Penyusutan Ekstrakompta</h2>
         <form id="barangForm">
             <div class="card card-style p-3 mb-4">
@@ -78,13 +26,13 @@
                 </div>
             </div>
             <div id="groupContainer">
-              <div class="group-entry">
-                  <div class="table-container-wrapper mt-3">
-                      <div class="table-container">
-                          <table class="table table-bordered">
-                              <thead>
+                <div class="group-entry">
+                    <div class="table-container-wrapper mt-3">
+                        <div class="table-container">
+                            <table class="table table-bordered">
+                                <thead>
                                 <tr>
-                                    <th rowspan="3">Hapus</th>
+                                    <th rowspan="3">AKSI</th>
                                     <th rowspan="2" colspan="2">LIST BARANG ESKTRAKOMPTABEL (DI LUAR NERACA)</th>
                                     <th rowspan="3">Satuan</th>
                                     <th colspan="6">SALDO AKHIR</th>
@@ -101,42 +49,105 @@
                                     <th>Beban Penyusutan</th>
                                     <th>Koreksi</th>
                                 </tr>
-                              </thead>
-                              <tbody class="barang-list">
-                              </tbody>
-                          </table>
-                      </div>
-                  </div>
-                  <button type="button" class="btn btn-sm btn-success addBarang mt-2">Tambah Barang</button>
-              </div>
+                                </thead>
+                                <tbody class="barang-list">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-sm btn-success addBarang mt-2">
+                        <i class="fa-solid fa-plus"></i>
+                        Tambah Barang
+                    </button>
+                </div>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="action-buttons">
+                <button type="button" class="btn btn-success" id="saveData">
+                    <i class="fa-solid fa-floppy-disk"></i>
+                    Simpan
+                </button>
+                <button type="button" class="btn btn-secondary" id="exportExcel" disabled>
+                    <i class="fa-solid fa-file-export"></i>
+                    Unduh (.xlsx)
+                </button>
+                <button type="button" class="btn btn-secondary" id="printReport" disabled>
+                    <i class="fa-solid fa-eye"></i>
+                    Lihat Laporan
+                </button>
+            </div>
         </form>
     </div>
 
     <script>
-        document.querySelector('.addBarang').addEventListener('click', function() {
-            const barangList = document.querySelector('.barang-list');
+        const barangTemplate = `
+            <td>
+                <div class="row-actions">
+                    <button type="button" class="btn btn-primary btn-sm duplicate-barang" title="Duplicate">
+                        <i class="fa-regular fa-copy"></i>
+                    </button>
+                    <button type="button" class="btn btn-danger btn-sm remove-barang" title="Delete">
+                        <i class="fa-regular fa-trash-can"></i>
+                    </button>
+                </div>
+            </td>
+            <td><input type="text" class="form-control kode" required></td>
+            <td><input type="text" class="form-control uraian" required></td>
+            <td><input type="text" class="form-control satuan" required></td>
+            <td><input type="number" class="form-control kuantitas" required></td>
+            <td><input type="number" class="form-control nilai" required></td>
+            <td><input type="number" class="form-control saldoAwal" required></td>
+            <td><input type="number" class="form-control bebanPenyusutan" required></td>
+            <td><input type="number" class="form-control koreksi" required></td>
+        `;
+
+        function addBarangRow(tbody) {
             const row = document.createElement('tr');
-            row.innerHTML = `
-                <td><button type="button" class="btn btn-danger btn-sm remove-barang">&times;</button></td>
-                <td><input type="text" class="form-control kode" required></td>
-                <td><input type="text" class="form-control uraian" required></td>
-                <td><input type="text" class="form-control satuan" required></td>
-                <td><input type="number" class="form-control kuantitas" required></td>
-                <td><input type="number" class="form-control nilai" required></td>
-                <td><input type="number" class="form-control saldoAwal" required></td>
-                <td><input type="number" class="form-control bebanPenyusutan" required></td>
-                <td><input type="number" class="form-control koreksi" required></td>
-            `;
+            row.innerHTML = barangTemplate;
+            attachBarangRowEvents(row);
+            tbody.appendChild(row);
+        }
+
+        function attachBarangRowEvents(row) {
             row.querySelector('.remove-barang').addEventListener('click', function() {
                 row.remove();
             });
-            barangList.appendChild(row);
+
+            row.querySelector('.duplicate-barang').addEventListener('click', function() {
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = barangTemplate;
+                
+                // Copy values from current row to new row
+                const inputs = row.querySelectorAll('input');
+                const newInputs = newRow.querySelectorAll('input');
+                inputs.forEach((input, index) => {
+                    newInputs[index].value = input.value;
+                });
+
+                attachBarangRowEvents(newRow);
+                row.parentNode.insertBefore(newRow, row.nextSibling);
+            });
+        }
+
+        document.querySelector('.addBarang').addEventListener('click', function() {
+            addBarangRow(document.querySelector('.barang-list'));
         });
 
-        document.getElementById('barangForm').addEventListener('submit', function(event) {
-            event.preventDefault();
+        document.getElementById('saveData').addEventListener('click', function() {
+            const data = collectFormData();
+            if (validateData(data)) {
+                localStorage.setItem('barangData', JSON.stringify(data.barangData));
+                localStorage.setItem('metadata', JSON.stringify(data.metadata));
+                document.getElementById('exportExcel').disabled = false;
+                document.getElementById('printReport').disabled = false;
+                alert('Data berhasil disimpan!');
+            }
+        });
+
+        function collectFormData() {
+            const metadata = {
+                periodeLaporan: document.querySelector('.periodeLaporan').value,
+            };
+
             const barangData = [];
             document.querySelectorAll('.barang-list > tr').forEach(barang => {
                 barangData.push({
@@ -151,13 +162,195 @@
                 });
             });
 
-            const metadata = {
-                periodeLaporan: document.querySelector('.periodeLaporan').value
-            };
+            return { metadata, barangData };
+        }
+
+        // Validate data
+        function validateData(data) {
+            if (!data.metadata.periodeLaporan) {
+                alert('Periode harus diisi!');
+                return false;
+            }
+            if (data.barangData.length === 0) {
+                alert('Minimal harus ada satu group barang!');
+                return false;
+            }
+            return true;
+        }
+
+        // Event handler for Excel export
+        document.getElementById('exportExcel').addEventListener('click', function() {
+            const data = JSON.parse(localStorage.getItem('barangData'));
+            const metadata = JSON.parse(localStorage.getItem('metadata'));
             
-            localStorage.setItem('metadata', JSON.stringify(metadata));
-            localStorage.setItem('barangData', JSON.stringify(barangData));
-            window.location.href = '../views/lap-penyusutan-ekstrakompta-view.html';
+            const wb = XLSX.utils.book_new();
+            const ws_data = [];
+
+            const textSaldoAkhir = `SALDO AKHIR ${dateFormatter(new Date(metadata.periodeLaporan)).toUpperCase()}`;
+            
+            // Header rows
+            ws_data.push([
+                'LIST BARANG ESKTRAKOMPTABEL (DI LUAR NERACA)', 'LIST BARANG ESKTRAKOMPTABEL (DI LUAR NERACA)',
+                'SATUAN',
+                textSaldoAkhir, textSaldoAkhir
+            ]);
+            ws_data.push([
+                '', '',
+                '', 
+                'Kuantitas', 'Nilai',
+                'AKUMULASI PENYUSUTAN', 'AKUMULASI PENYUSUTAN', 'AKUMULASI PENYUSUTAN', 'AKUMULASI PENYUSUTAN',
+                'Nilai Buku'
+            ]);
+            ws_data.push([
+                'Kode', 'Uraian',
+                '', '', '',
+                'Saldo Awal', 'Beban Penyusutan',
+                'Koreksi', 'Total'
+            ]);
+            ws_data.push([
+                '1', '2', '3',
+                '4', '5',
+                '6', '7', '8', '9 = 6+7+8',
+                '10 = 5-9'
+            ]);
+
+            // Pre-calculate group totals
+            let totalNilai = 0;
+            let totalSaldoAwal = 0;
+            let totalBebanPenyusutan = 0;
+            let totalKoreksi = 0;
+            
+            data.forEach(barang => {
+                totalNilai += Number(barang.nilai) || 0;
+                totalSaldoAwal += Number(barang.saldoAwal) || 0;
+                totalBebanPenyusutan += Number(barang.bebanPenyusutan) || 0;
+                totalKoreksi += Number(barang.koreksi) || 0;
+            });
+                    
+            const grandTotal = totalSaldoAwal + totalBebanPenyusutan + totalKoreksi;
+            const totalNilaiBuku = totalNilai - grandTotal;
+
+            let rowNumber = 5;
+            const startGroupRow = rowNumber + 1;
+
+            // Add group row with both formulas and pre-calculated values
+            ws_data.push([
+                '',
+                '',
+                '',
+                '',
+                { t: 'n', v: totalNilai, f: `SUM(E${startGroupRow}:E${startGroupRow + data.length - 1})` },
+                { t: 'n', v: totalSaldoAwal, f: `SUM(F${startGroupRow}:F${startGroupRow + data.length - 1})` },
+                { t: 'n', v: totalBebanPenyusutan, f: `SUM(G${startGroupRow}:G${startGroupRow + data.length - 1})` },
+                { t: 'n', v: totalKoreksi, f: `SUM(H${startGroupRow}:H${startGroupRow + data.length - 1})` },
+                { t: 'n', v: grandTotal, f: `SUM(I${startGroupRow}:I${startGroupRow + data.length - 1})` },
+                { t: 'n', v: totalNilaiBuku, f: `SUM(J${startGroupRow}:J${startGroupRow + data.length - 1})` },
+            ]);
+            
+            rowNumber++;
+
+            // Add item rows with both formulas and pre-calculated values
+            data.forEach(barang => {
+                const saldoTotal = (Number(barang.saldoAwal) + Number(barang.bebanPenyusutan) + Number(barang.koreksi)) || 0;
+                const saldoNilaiBuku = (Number(barang.nilai) - saldoTotal) || 0;
+                
+                ws_data.push([
+                    barang.kode,
+                    barang.uraian,
+                    barang.satuan,
+                    Number(barang.kuantitas) || 0,
+                    Number(barang.nilai) || 0,
+                    Number(barang.saldoAwal) || 0,
+                    Number(barang.bebanPenyusutan) || 0,
+                    Number(barang.koreksi) || 0,
+                    { t: 'n', v: saldoTotal, f: `F${rowNumber}+G${rowNumber}+H${rowNumber}` },
+                    { t: 'n', v: saldoNilaiBuku, f: `E${rowNumber}-I${rowNumber}` }
+                ]);
+                
+                rowNumber++;
+            });
+            
+            const ws = XLSX.utils.aoa_to_sheet(ws_data);
+
+            // Apply styles to all cells
+            const range = XLSX.utils.decode_range(ws['!ref']);
+            for (let R = range.s.r; R <= range.e.r; R++) {
+                for (let C = range.s.c; C <= range.e.c; C++) {
+                    const cellRef = XLSX.utils.encode_cell({ r: R, c: C });
+                    if (!ws[cellRef]) ws[cellRef] = { v: '' };
+                    
+                    if (R < 3) {
+                        ws[cellRef].s = headerStyle;
+                    } else if (R === 3) {
+                        ws[cellRef].s = headerNumberStyle;
+                    } else {
+                        // Apply number format to numeric columns
+                        if ([3,4,5,6,7,8,9,10].includes(C)) {
+                            ws[cellRef].s = numberStyle;
+                        } else {
+                            ws[cellRef].s = dataStyle;
+                        }
+
+                        if ((startGroupRow - 2) === R) {
+                            ws[cellRef].s = {
+                                ...ws[cellRef].s,
+                                font: {
+                                    bold: true,
+                                },
+                                fill: {
+                                    patternType: 'solid',
+                                    fgColor: { rgb: "C9C9C9" }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
+            // Set column widths
+            ws['!cols'] = [
+                {wch: 30}, // Kode
+                {wch: 30}, // Uraian
+                {wch: 8},  // Satuan
+                {wch: 12}, // Kuantitas
+                {wch: 18}, // Nilai
+                {wch: 18}, // Saldo Awal
+                {wch: 18}, // Beban Penyusutan
+                {wch: 18}, // Koreksi
+                {wch: 18}, // Total
+                {wch: 18}  // Nilai Buku
+            ];
+            
+            // Merge cells for headers
+            ws['!merges'] = [
+                // Merge untuk header baris pertama
+                {s: {r: 0, c: 0}, e: {r: 1, c: 1}}, // AKUN NERACA
+                {s: {r: 0, c: 2}, e: {r: 2, c: 2}}, // SATUAN
+                {s: {r: 0, c: 3}, e: {r: 0, c: 9}}, // SALDO AKHIR
+                
+                // Merge untuk header baris kedua
+                {s: {r: 1, c: 3}, e: {r: 2, c: 3}}, // KUANTITAS
+                {s: {r: 1, c: 4}, e: {r: 2, c: 4}}, // NILAI
+                {s: {r: 1, c: 5}, e: {r: 1, c: 8}}, // AKUMULASI PENYUSUTAN
+                {s: {r: 1, c: 9}, e: {r: 2, c: 9}}  // NILAI BUKU
+            ];
+            
+            // Add sheet to workbook
+            XLSX.utils.book_append_sheet(wb, ws, "LAP PENYUSUTAN EKSTRAKOMPTA");
+
+            // Write file with all formatting options enabled
+            XLSX.writeFile(wb, `Laporan_Penyusutan_Ekstrakompta_${metadata.periodeLaporan}.xlsx`, {
+                bookType: 'xlsx',
+                bookSST: false,
+                type: 'binary',
+                cellStyles: true,
+                compression: true
+            });
+        });
+
+        // Print report
+        document.getElementById('printReport').addEventListener('click', function() {
+            window.open('../views/lap-penyusutan-ekstrakompta-view.html', '_blank');
         });
     </script>
 </body>

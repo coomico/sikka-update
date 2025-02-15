@@ -1,0 +1,24 @@
+.table .form-control.kode,
+.table .form-control.uraian {
+  min-width: 180px;
+}
+
+.table .form-control.satuan {
+  min-width: 80px;
+  text-align: center;
+}
+
+.table .form-control.kuantitas {
+  min-width: 100px;
+  text-align: right;
+  font-family: 'Consolas', monospace;
+}
+
+.table .form-control.nilai,
+.table .form-control.saldoAwal,
+.table .form-control.bebanPenyusutan,
+.table .form-control.koreksi {
+  min-width: 150px;
+  text-align: right;
+  font-family: 'Consolas', monospace;
+}
