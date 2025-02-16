@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Data Penyusutan Ekstrakompta</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../dist/base.css" rel="stylesheet">
+    <link href="../dist/penyusutan.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://kit.fontawesome.com/d0daa1cbe3.js" crossorigin="anonymous"></script>
+    <script src="../dist/xlsx.bundle.js"></script>
+    <script src="../dist/cell.style.js"></script>
+    <script src="../dist/utils.js"></script>
+    <script src="index.js"></script>
+    <script src="db.js"></script>
+</head>
+<body>
+    <div class="container-lg mt-4 mb-4 px-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <a href="index.html" class="btn btn-outline-secondary">
+                <i class="fa-solid fa-arrow-left me-2"></i> Kembali
+            </a>
+            <h2 class="text-center mb-0">Input Data Penyusutan Ekstrakompta</h2>
+            <div style="width: 90px;"></div> <!-- Spacer for centering -->
+        </div>
+        <form id="barangForm">
+            <div class="card card-style p-3 mb-4">
+                <h5 class="card-title">Periode Laporan</h5>
+                <div class="row g-2">
+                    <div class="col-md-6">
+                        <input type="date" class="form-control periodeLaporan" required>
+                    </div>
+                </div>
+            </div>
+            <div id="groupContainer">
+                <div class="group-entry">
+                    <div class="table-container-wrapper mt-3">
+                        <div class="table-container">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th rowspan="3">AKSI</th>
+                                    <th rowspan="2" colspan="2">LIST BARANG ESKTRAKOMPTABEL (DI LUAR NERACA)</th>
+                                    <th rowspan="3">Satuan</th>
+                                    <th colspan="6">SALDO AKHIR</th>
+                                </tr>
+                                <tr>
+                                    <th rowspan="2">Kuantitas</th>
+                                    <th rowspan="2">Nilai</th>
+                                    <th colspan="4">AKUMULASI PENYUSUTAN</th>
+                                </tr>
+                                <tr>
+                                    <th>Kode</th>
+                                    <th>Uraian</th>
+                                    <th>Saldo Awal</th>
+                                    <th>Beban Penyusutan</th>
+                                    <th>Koreksi</th>
+                                </tr>
+                                </thead>
+                                <tbody class="barang-list">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-sm btn-secondary addBarang mt-2">
+                        <i class="fa-solid fa-plus me-1"></i>
+                        Tambah Barang
+                    </button>
+                </div>
+            </div>
+            <div class="action-buttons">
+                <button type="button" class="btn btn-sm btn-success" id="saveData">
+                    <i class="fa-solid fa-floppy-disk me-1"></i>
+                    Simpan
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const barangTemplate = `
+            <td>
+                <div class="row-actions">
+                    <button type="button" class="btn btn-primary btn-sm duplicate-barang" title="Duplicate">
+                        <i class="fa-regular fa-copy"></i>
+                    </button>
+                    <button type="button" class="btn btn-danger btn-sm remove-barang" title="Delete">
+                        <i class="fa-regular fa-trash-can"></i>
+                    </button>
+                </div>
+            </td>
+            <td><input type="text" class="form-control kode" required></td>
+            <td><input type="text" class="form-control uraian" required></td>
+            <td><input type="text" class="form-control satuan" required></td>
+            <td><input type="number" class="form-control kuantitas" required></td>
+            <td><input type="number" class="form-control nilai" required></td>
+            <td><input type="number" class="form-control saldoAwal" required></td>
+            <td><input type="number" class="form-control bebanPenyusutan" required></td>
+            <td><input type="number" class="form-control koreksi" required></td>
+        `;
+
+        function addBarangRow(tbody) {
+            const row = document.createElement('tr');
+            row.innerHTML = barangTemplate;
+            attachBarangRowEvents(row);
+            tbody.appendChild(row);
+        }
+
+        function attachBarangRowEvents(row) {
+            row.querySelector('.remove-barang').addEventListener('click', function() {
+                row.remove();
+            });
+
+            row.querySelector('.duplicate-barang').addEventListener('click', function() {
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = barangTemplate;
+                
+                // Copy values from current row to new row
+                const inputs = row.querySelectorAll('input');
+                const newInputs = newRow.querySelectorAll('input');
+                inputs.forEach((input, index) => {
+                    newInputs[index].value = input.value;
+                });
+
+                attachBarangRowEvents(newRow);
+                row.parentNode.insertBefore(newRow, row.nextSibling);
+            });
+        }
+
+        document.querySelector('.addBarang').addEventListener('click', function() {
+            addBarangRow(document.querySelector('.barang-list'));
+        });
+
+        document.getElementById('saveData').addEventListener('click', async function() {
+            // Show warning about not being able to modify data after saving
+            if (!confirm('PERHATIAN: Data tidak dapat diubah setelah disimpan. Lanjutkan?')) {
+                return; // User canceled
+            }
+            
+            const data = collectFormData();
+            if (validateData(data)) {
+                try {
+                    await saveCompleteData(data);
+                    alert('Data berhasil disimpan! Kembali ke halaman daftar');
+                    window.location.href = 'index.html';
+                } catch (error) {
+                    console.error('Error saving data:', error);
+                    alert('Terjadi kesalahan saat menyimpan data!');
+                }
+            }
+        });
+
+        function collectFormData() {
+            const metadata = {
+                periode_laporan: document.querySelector('.periodeLaporan').value,
+            };
+
+            const barangData = [];
+            document.querySelectorAll('.barang-list > tr').forEach(barang => {
+                barangData.push({
+                    kode: barang.querySelector('.kode').value,
+                    uraian: barang.querySelector('.uraian').value,
+                    satuan: barang.querySelector('.satuan').value,
+                    kuantitas: Number(barang.querySelector('.kuantitas').value),
+                    nilai: Number(barang.querySelector('.nilai').value),
+                    saldo_awal: Number(barang.querySelector('.saldoAwal').value),
+                    beban_penyusutan: Number(barang.querySelector('.bebanPenyusutan').value),
+                    koreksi: Number(barang.querySelector('.koreksi').value)
+                });
+            });
+
+            return { metadata, barangData };
+        }
+
+        // Validate data
+        function validateData(data) {
+            if (!data.metadata.periode_laporan) {
+                alert('Periode harus diisi!');
+                return false;
+            }
+            if (data.barangData.length === 0) {
+                alert('Minimal harus ada satu group barang!');
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>
