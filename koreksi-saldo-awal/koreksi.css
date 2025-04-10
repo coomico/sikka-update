@@ -1,0 +1,663 @@
+.table-section {
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 2rem;
+  box-shadow: var(--card-shadow);
+}
+
+/* Section separator style */
+.section-divider {
+  width: 100%;
+  height: 1.5rem;
+  background-color: #f0f0f0;
+  border-left: 1px solid #e0e0e0;
+  border-right: 1px solid #e0e0e0;
+}
+
+/* Column styles */
+.table .form-control.kode-akun {
+  min-width: 120px;
+}
+
+.table .form-control.nama-akun {
+  min-width: 200px;
+}
+
+.table .form-control.bukti {
+  min-width: 180px;
+}
+
+.table .form-control.debit,
+.table .form-control.kredit {
+  min-width: 120px;
+  text-align: right;
+  font-family: 'Consolas', monospace;
+}
+
+/* Style for inactive (disabled) inputs */
+.table .form-control.inactive-input {
+  background-color: #f2f2f2;
+  color: #a0a0a0;
+  border-color: #e0e0e0;
+}
+
+.table .form-control.tanggal {
+  min-width: 150px;
+}
+
+.table .form-control.keterangan {
+  min-width: 200px;
+}
+
+.akrual-section {
+  background-color: rgba(33, 53, 85, 0.06) !important;
+}
+
+.kas-section {
+  background-color: rgba(216, 196, 182, 0.08) !important;
+}
+
+/* Visual distinction between akrual and kas sections */
+.akrual-section th,
+.akrual-section td {
+  background-color: rgba(33, 53, 85, 0.1) !important;
+}
+
+.kas-section th,
+.kas-section td {
+  background-color: rgba(216, 196, 182, 0.15) !important;
+}
+
+.akrual-section th {
+  border-bottom: 3px solid var(--primary-color) !important;
+}
+
+.kas-section th {
+  border-bottom: 3px solid var(--accent-color) !important;
+}
+
+/* Section headers */
+.section-header {
+  padding: 8px 16px;
+  font-weight: 600;
+  font-size: 1rem;
+  color: white;
+  background-color: var(--primary-color);
+}
+
+.akrual-header {
+  background-color: var(--primary-color);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.kas-header {
+  background-color: var(--secondary-color);
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Visual separator between sections */
+.section-separator {
+  background-color: #f5f6fa;
+  border-left: 2px solid #e5e7eb;
+  border-right: 2px solid #e5e7eb;
+}
+
+.section-divider-vertical {
+  width: 30px !important;
+  background: linear-gradient(to right, rgba(33, 53, 85, 0.08), rgba(216, 196, 182, 0.1)) !important;
+  border-left: 2px solid rgba(33, 53, 85, 0.2) !important; 
+  border-right: 2px solid rgba(216, 196, 182, 0.2) !important;
+  padding: 0 !important;
+  position: relative;
+  min-width: 30px !important;
+}
+
+.section-divider-vertical::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  height: 100%;
+  width: 1px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.2), rgba(0,0,0,0.1));
+  transform: translateX(-50%);
+}
+
+/* Add styling to make the section headers more distinct */
+.table thead th.akrual-header {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 15px 8px;
+  border-right: 2px solid #4a6278;
+}
+
+.table thead th.kas-header {
+  background-color: var(--secondary-color);
+  color: white;
+  padding: 15px 8px;
+  border-left: 2px solid #4a6278;
+}
+
+.table thead tr:first-child th.akrual-header {
+  background-color: var(--secondary-color);
+  color: white;
+}
+
+.table thead tr:first-child th.kas-header {
+  background-color: var(--secondary-color);
+  color: white;
+}
+
+.table tbody td:nth-child(7) {
+  border-right: 1px solid #d0d0d0 !important; 
+}
+
+.table tbody td:nth-child(9) {
+  border-left: 1px solid #d0d0d0 !important;
+}
+
+.table thead .section-divider-vertical {
+  background: linear-gradient(to right, var(--primary-color), var(--secondary-color)) !important;
+  border-left: none !important;
+  border-right: none !important;
+}
+
+.table thead .section-divider-vertical::before {
+  content: '⋮';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(90deg);
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: -1px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+  background: none;
+  width: auto;
+  height: auto;
+  border-radius: 0;
+}
+
+#koreksiTable tbody td.section-divider-vertical {
+  background: linear-gradient(to right, rgba(33, 53, 85, 0.08), rgba(216, 196, 182, 0.1)) !important;
+}
+
+/* Transaction pair styling */
+.transaction-header {
+  background-color: var(--light-color);
+  font-weight: 500;
+  position: relative;
+}
+
+.transaction-header td {
+  padding-top: 15px !important;
+}
+
+.transaction-pair {
+  background-color: rgba(245, 239, 231, 0.3);
+  position: relative;
+}
+
+.transaction-pair:hover {
+  background-color: rgba(245, 239, 231, 0.5);
+}
+
+.table tbody tr.transaction-pair:nth-child(even) {
+  background-color: rgba(245, 239, 231, 0.3);
+}
+
+.table tbody tr.transaction-pair:nth-of-type(even) {
+  background-color: rgba(245, 239, 231, 0.3);
+}
+
+/* Validation styling */
+.is-invalid {
+  border-color: var(--danger-color) !important;
+}
+
+.invalid-feedback {
+  display: block;
+  color: var(--danger-color);
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+}
+
+.row-number {
+  background-color: var(--secondary-color);
+  color: white;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  margin: 0 auto;
+}
+
+/* Transaction separator */
+.transaction-separator {
+  border-bottom: 2px solid var(--accent-color);
+}
+
+.transaction-info {
+  color: var(--secondary-color);
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+/* Custom checkboxes for selecting debit/kredit type */
+.form-check-input:checked {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.form-radio-group {
+  display: flex;
+  gap: 15px;
+}
+
+.form-radio-group .form-check {
+  margin: 0;
+}
+
+.keterangan-input {
+  width: 100%;
+  border: none;
+  background-color: transparent;
+  padding: 3px 0;
+  color: var(--secondary-color);
+  font-size: 0.9rem;
+}
+
+.keterangan-input:focus {
+  outline: none;
+}
+
+/* Section totals row styling */
+.section-total {
+  background-color: #f8fafc !important;
+  font-weight: 600;
+}
+
+.section-total td {
+  border-top: 2px solid #e5e7eb !important;
+  padding: 10px 12px !important;
+}
+
+.section-total td.section-divider-vertical {
+  background: linear-gradient(to right, #eef1f5, #f2eeeb) !important;
+  border-top: 2px solid #e5e7eb !important;
+}
+
+.table tbody td:nth-child(7) {
+  border-right: none !important;
+}
+
+.table tbody td:nth-child(9) {
+  border-left: none !important;
+}
+
+/* Enhanced JSON Modal Styles */
+#jsonModal .modal-content {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+#jsonModal .modal-header {
+  background-color: var(--primary-color);
+  color: white;
+  border-bottom: none;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  padding: 16px 20px;
+}
+
+#jsonModal .modal-title {
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#jsonModal .modal-title::before {
+  content: "\f15c"; /* File icon */
+  font-family: "Font Awesome 6 Free";
+  font-weight: 400;
+}
+
+#jsonModal .modal-body {
+  padding: 20px;
+}
+
+#jsonModal .modal-footer {
+  border-top: none;
+  padding: 15px 20px 20px;
+}
+
+/* JSON Content Container */
+#jsonModalContent {
+  min-height: 300px;
+  max-height: 500px;
+  overflow-y: auto;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  padding: 15px;
+  font-family: 'Consolas', 'Monaco', monospace;
+  font-size: 14px;
+  white-space: pre-wrap;
+  color: #333;
+  position: relative;
+  line-height: 1.6;
+}
+
+/* Syntax highlighting for JSON */
+.json-content {
+  counter-reset: line;
+}
+
+.json-content .string { color: #008000; }
+.json-content .number { color: #0000ff; }
+.json-content .boolean { color: #b22222; }
+.json-content .null { color: #808080; }
+.json-content .key { color: #a52a2a; font-weight: bold; }
+
+/* JSON Toolbar */
+.json-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding: 10px 15px;
+  background-color: #f0f2f5;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+.json-toolbar .json-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--secondary-color);
+  font-size: 14px;
+}
+
+.json-toolbar .json-info i {
+  color: var(--primary-color);
+}
+
+.json-toolbar .json-info .json-size {
+  padding: 3px 8px;
+  background-color: #e9ecef;
+  border-radius: 4px;
+  font-family: 'Consolas', monospace;
+  font-size: 13px;
+}
+
+.json-toolbar .json-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Copy button styling */
+#copyJson {
+  padding: 8px 16px;
+  background-color: var(--secondary-color);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+#copyJson:hover {
+  background-color: var(--primary-color);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+#copyJson:active {
+  transform: translateY(0);
+}
+
+#copyJson i {
+  font-size: 16px;
+}
+
+/* Copy success notification */
+.copy-success {
+  display: flex;
+  align-items: center;
+  color: var(--success-color);
+  font-size: 14px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  gap: 5px;
+}
+
+.copy-success::before {
+  content: "\f058"; /* Check circle icon */
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+}
+
+.copy-success.show {
+  opacity: 1;
+  animation: fadeInOutPulse 2s ease forwards;
+}
+
+@keyframes fadeInOutPulse {
+  0% { opacity: 0; transform: scale(0.9); }
+  15% { opacity: 1; transform: scale(1.05); }
+  25% { transform: scale(1); }
+  80% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Success animation */
+.json-sent-success {
+  text-align: center;
+  margin-bottom: 15px;
+  padding: 12px;
+  background-color: rgba(39, 174, 96, 0.1);
+  border-radius: 8px;
+  color: var(--success-color);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.json-sent-success i {
+  font-size: 18px;
+}
+
+/* JSON Info Labels */
+.json-info-labels {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+}
+
+.json-info-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background-color: #f0f2f5;
+  border-radius: 6px;
+  font-size: 13px;
+  color: var(--secondary-color);
+}
+
+.json-info-label i {
+  color: var(--primary-color);
+  font-size: 14px;
+}
+
+/* Line numbers for JSON content (optional enhancement) */
+.line-numbers {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+  background-color: #f0f2f5;
+  border-right: 1px solid #e0e0e0;
+  padding: 15px 8px;
+  text-align: right;
+  font-family: 'Consolas', monospace;
+  font-size: 12px;
+  color: #666;
+  user-select: none;
+}
+
+.json-content.with-line-numbers {
+  padding-left: 50px;
+}
+
+/* Styling untuk tombol Reset Form */
+#resetForm {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  transition: all 0.2s ease-in-out;
+}
+
+#resetForm:hover {
+  background-color: #c82333;
+  box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+}
+
+#resetForm:active {
+  transform: translateY(1px);
+}
+
+/* Modal Reset Form styling */
+#resetModal .modal-content {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+#resetModal .modal-header {
+  background-color: #f8d7da;
+  border-bottom: none;
+  color: #721c24;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+#resetModal .modal-title {
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#resetModal .modal-title::before {
+  content: "\f2ea"; /* Ikon reset */
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+}
+
+#resetModal .modal-body p.text-danger {
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#resetModal .modal-body p.text-danger::before {
+  content: "\f071"; /* Ikon warning */
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+}
+
+#resetModal .modal-footer {
+  border-top: none;
+  padding-top: 0;
+}
+
+#confirmReset {
+  padding: 8px 16px;
+  background-color: #dc3545;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+#confirmReset:hover {
+  background-color: #bd2130;
+}
+
+.alert-info {
+  background-color: #cce5ff;
+  border-color: #b8daff;
+  color: #004085;
+}
+
+@media (max-width: 768px) {
+  .action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .action-buttons .btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .json-toolbar {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  
+  .json-toolbar .json-actions {
+    width: 100%;
+  }
+  
+  #copyJson {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .json-info-labels {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 992px) {
+  .section-divider-vertical {
+    min-width: 20px !important;
+    width: 20px !important;
+  }
+
+  .table-container {
+    width: max-content;
+  }
+  
+  .table-container-wrapper {
+    overflow-x: auto;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .action-buttons .btn {
+    width: 100%;
+  }
+}

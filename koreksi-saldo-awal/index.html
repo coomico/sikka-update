@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Data Koreksi Saldo Awal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../dist/base.css" rel="stylesheet">
+    <link href="koreksi.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/d0daa1cbe3.js" crossorigin="anonymous"></script>
+    <script src="../dist/utils.js"></script>
+</head>
+<body>
+    <div class="container-lg mt-4 mb-4 px-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <a href="../" class="btn btn-outline-secondary">
+                <i class="fa-solid fa-arrow-left me-2"></i> Kembali
+            </a>
+            <h2 class="text-center mb-0">Input Data Koreksi Saldo Awal</h2>
+            <div style="width: 90px;"></div>
+        </div>
+        
+        <form id="koreksiForm">
+            <div class="card-style mb-4">
+                <div class="table-container-wrapper mt-3">
+                    <div class="table-container">
+                        <table class="table table-bordered" id="koreksiTable">
+                            <thead>
+                              <tr>
+                                  <th rowspan="2" style="width: 80px;">Aksi</th>
+                                  <th rowspan="2" style="width: 120px;">Tanggal</th>
+                                  <th rowspan="2" style="width: 180px;">Bukti Transaksi</th>
+                                  <th colspan="4" class="akrual-header">BUKU BESAR AKRUAL</th>
+                                  <th class="section-divider-vertical" rowspan="2"></th>
+                                  <th colspan="4" class="kas-header">BUKU BESAR KAS</th>
+                              </tr>
+                              <tr>
+                                  <th style="width: 120px;" class="akrual-section">Kode Akun</th>
+                                  <th style="width: 200px;" class="akrual-section">Nama Akun</th>
+                                  <th style="width: 120px;" class="akrual-section">Debit</th>
+                                  <th style="width: 120px;" class="akrual-section">Kredit</th>
+                                  <th style="width: 120px;" class="kas-section">Kode Akun</th>
+                                  <th style="width: 200px;" class="kas-section">Nama Akun</th>
+                                  <th style="width: 120px;" class="kas-section">Debit</th>
+                                  <th style="width: 120px;" class="kas-section">Kredit</th>
+                              </tr>
+                            </thead>
+                            <tbody id="koreksiEntries">
+                                <!-- Entries will be added here -->
+                            </tbody>
+                            <tfoot>
+                                <tr class="section-total">
+                                    <td colspan="5" class="text-end">Total Akrual:</td>
+                                    <td id="totalAkrualDebit" class="text-end">0</td>
+                                    <td id="totalAkrualKredit" class="text-end">0</td>
+                                    <td class="section-divider-vertical"></td>
+                                    <td colspan="2" class="text-end">Total Kas:</td>
+                                    <td id="totalKasDebit" class="text-end">0</td>
+                                    <td id="totalKasKredit" class="text-end">0</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="action-buttons">
+              <button type="button" class="btn btn-secondary my-3" id="addTransaksi">
+                  <i class="fa-solid fa-plus me-1"></i>
+                  Tambah Transaksi
+              </button>
+              <button type="button" class="btn btn-danger my-3" id="resetForm">
+                  <i class="fa-solid fa-rotate me-1"></i>
+                  Reset Form
+              </button>
+              <button type="button" class="btn btn-success my-3" id="saveData">
+                  <i class="fa-solid fa-paper-plane me-1"></i>
+                  Kirim Data
+              </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Modal Konfirmasi Kirim Data -->
+    <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmModalLabel">Konfirmasi Pengiriman Data</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Apakah Anda yakin ingin mengirim data koreksi saldo awal?</p>
+                    <p class="text-muted small">Data yang dikirim tidak dapat diubah kembali.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-primary" id="confirmSend">Ya, Kirim</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal JSON Data -->
+    <div class="modal fade" id="jsonModal" tabindex="-1" aria-labelledby="jsonModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="jsonModalLabel">Data JSON Terkirim</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <div class="json-toolbar">
+                      <div class="json-info">
+                          <i class="fa-solid fa-circle-info"></i>
+                          <span>Ukuran Data: <span class="json-size">-</span></span>
+                      </div>
+                      <div class="json-actions">
+                          <span class="copy-success">Berhasil disalin!</span>
+                          <button type="button" class="btn" id="copyJson">
+                              <i class="fa-regular fa-copy"></i> Salin JSON
+                          </button>
+                      </div>
+                  </div>
+                  <div id="jsonModalContent"></div>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+              </div>
+          </div>
+      </div>
+    </div>
+
+    <!-- Modal Konfirmasi Reset Form -->
+    <div class="modal fade" id="resetModal" tabindex="-1" aria-labelledby="resetModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="resetModalLabel">Konfirmasi Reset Form</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <p>Apakah Anda yakin ingin me-reset form ini?</p>
+                  <p class="text-danger small">Semua data yang telah dimasukkan akan hilang.</p>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                  <button type="button" class="btn btn-danger" id="confirmReset">Ya, Reset Form</button>
+              </div>
+          </div>
+      </div>
+    </div>
+
+    <!-- Alert Container -->
+    <div id="alertContainer" class="position-fixed top-0 end-0 p-3" style="z-index: 1050"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>
