@@ -64,7 +64,7 @@
                 </div>
             </div>
             
-            <div class="action-buttons">
+            <div class="action-buttons d-flex gap-3">
               <button type="button" class="btn btn-secondary my-3" id="addTransaksi">
                   <i class="fa-solid fa-plus me-1"></i>
                   Tambah Transaksi
@@ -74,61 +74,31 @@
                   Reset Form
               </button>
               <button type="button" class="btn btn-success my-3" id="saveData">
-                  <i class="fa-solid fa-paper-plane me-1"></i>
-                  Kirim Data
+                <i class="fa-solid fa-download me-1"></i>
+                Simpan Data
               </button>
             </div>
         </form>
     </div>
 
-    <!-- Modal Konfirmasi Kirim Data -->
+    <!-- Modal Konfirmasi Download Data -->
     <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="confirmModalLabel">Konfirmasi Pengiriman Data</h5>
+                    <h5 class="modal-title" id="confirmModalLabel">Konfirmasi Download Data</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Apakah Anda yakin ingin mengirim data koreksi saldo awal?</p>
-                    <p class="text-muted small">Data yang dikirim tidak dapat diubah kembali.</p>
+                    <p>Apakah Anda yakin ingin mengunduh data koreksi saldo awal?</p>
+                    <p class="text-muted small">Data akan diunduh sebagai file JSON ke perangkat Anda.</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <button type="button" class="btn btn-primary" id="confirmSend">Ya, Kirim</button>
+                    <button type="button" class="btn btn-primary" id="confirmSend">Ya, Unduh</button>
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- Modal JSON Data -->
-    <div class="modal fade" id="jsonModal" tabindex="-1" aria-labelledby="jsonModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered modal-lg">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h5 class="modal-title" id="jsonModalLabel">Data JSON Terkirim</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                  <div class="json-toolbar">
-                      <div class="json-info">
-                          <i class="fa-solid fa-circle-info"></i>
-                          <span>Ukuran Data: <span class="json-size">-</span></span>
-                      </div>
-                      <div class="json-actions">
-                          <span class="copy-success">Berhasil disalin!</span>
-                          <button type="button" class="btn" id="copyJson">
-                              <i class="fa-regular fa-copy"></i> Salin JSON
-                          </button>
-                      </div>
-                  </div>
-                  <div id="jsonModalContent"></div>
-              </div>
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-              </div>
-          </div>
-      </div>
     </div>
 
     <!-- Modal Konfirmasi Reset Form -->

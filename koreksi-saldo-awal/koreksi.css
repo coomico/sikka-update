@@ -299,231 +299,6 @@
   border-left: none !important;
 }
 
-/* Enhanced JSON Modal Styles */
-#jsonModal .modal-content {
-  border: none;
-  border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-}
-
-#jsonModal .modal-header {
-  background-color: var(--primary-color);
-  color: white;
-  border-bottom: none;
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
-  padding: 16px 20px;
-}
-
-#jsonModal .modal-title {
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-#jsonModal .modal-title::before {
-  content: "\f15c"; /* File icon */
-  font-family: "Font Awesome 6 Free";
-  font-weight: 400;
-}
-
-#jsonModal .modal-body {
-  padding: 20px;
-}
-
-#jsonModal .modal-footer {
-  border-top: none;
-  padding: 15px 20px 20px;
-}
-
-/* JSON Content Container */
-#jsonModalContent {
-  min-height: 300px;
-  max-height: 500px;
-  overflow-y: auto;
-  background-color: #f8f9fa;
-  border-radius: 8px;
-  border: 1px solid #e0e0e0;
-  padding: 15px;
-  font-family: 'Consolas', 'Monaco', monospace;
-  font-size: 14px;
-  white-space: pre-wrap;
-  color: #333;
-  position: relative;
-  line-height: 1.6;
-}
-
-/* Syntax highlighting for JSON */
-.json-content {
-  counter-reset: line;
-}
-
-.json-content .string { color: #008000; }
-.json-content .number { color: #0000ff; }
-.json-content .boolean { color: #b22222; }
-.json-content .null { color: #808080; }
-.json-content .key { color: #a52a2a; font-weight: bold; }
-
-/* JSON Toolbar */
-.json-toolbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
-  padding: 10px 15px;
-  background-color: #f0f2f5;
-  border-radius: 8px;
-  border: 1px solid #e0e0e0;
-}
-
-.json-toolbar .json-info {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: var(--secondary-color);
-  font-size: 14px;
-}
-
-.json-toolbar .json-info i {
-  color: var(--primary-color);
-}
-
-.json-toolbar .json-info .json-size {
-  padding: 3px 8px;
-  background-color: #e9ecef;
-  border-radius: 4px;
-  font-family: 'Consolas', monospace;
-  font-size: 13px;
-}
-
-.json-toolbar .json-actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-/* Copy button styling */
-#copyJson {
-  padding: 8px 16px;
-  background-color: var(--secondary-color);
-  color: white;
-  border: none;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: all 0.2s ease;
-}
-
-#copyJson:hover {
-  background-color: var(--primary-color);
-  transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-#copyJson:active {
-  transform: translateY(0);
-}
-
-#copyJson i {
-  font-size: 16px;
-}
-
-/* Copy success notification */
-.copy-success {
-  display: flex;
-  align-items: center;
-  color: var(--success-color);
-  font-size: 14px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  gap: 5px;
-}
-
-.copy-success::before {
-  content: "\f058"; /* Check circle icon */
-  font-family: "Font Awesome 6 Free";
-  font-weight: 900;
-}
-
-.copy-success.show {
-  opacity: 1;
-  animation: fadeInOutPulse 2s ease forwards;
-}
-
-@keyframes fadeInOutPulse {
-  0% { opacity: 0; transform: scale(0.9); }
-  15% { opacity: 1; transform: scale(1.05); }
-  25% { transform: scale(1); }
-  80% { opacity: 1; }
-  100% { opacity: 0; }
-}
-
-/* Success animation */
-.json-sent-success {
-  text-align: center;
-  margin-bottom: 15px;
-  padding: 12px;
-  background-color: rgba(39, 174, 96, 0.1);
-  border-radius: 8px;
-  color: var(--success-color);
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-
-.json-sent-success i {
-  font-size: 18px;
-}
-
-/* JSON Info Labels */
-.json-info-labels {
-  display: flex;
-  gap: 15px;
-  flex-wrap: wrap;
-  margin-bottom: 15px;
-}
-
-.json-info-label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 12px;
-  background-color: #f0f2f5;
-  border-radius: 6px;
-  font-size: 13px;
-  color: var(--secondary-color);
-}
-
-.json-info-label i {
-  color: var(--primary-color);
-  font-size: 14px;
-}
-
-/* Line numbers for JSON content (optional enhancement) */
-.line-numbers {
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 40px;
-  background-color: #f0f2f5;
-  border-right: 1px solid #e0e0e0;
-  padding: 15px 8px;
-  text-align: right;
-  font-family: 'Consolas', monospace;
-  font-size: 12px;
-  color: #666;
-  user-select: none;
-}
-
-.json-content.with-line-numbers {
-  padding-left: 50px;
-}
-
 /* Styling untuk tombol Reset Form */
 #resetForm {
   background-color: #dc3545;
@@ -598,43 +373,85 @@
   background-color: #bd2130;
 }
 
+/* Confirmation Modal Styling - Updated for Download */
+#confirmModal .modal-content {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+#confirmModal .modal-header {
+  background-color: #e9f0f7;
+  border-bottom: none;
+  color: #1a5089;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+#confirmModal .modal-title {
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#confirmModal .modal-title::before {
+  content: "\f019"; /* Ikon download */
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+}
+
+#confirmModal .modal-body p {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#confirmModal .modal-footer {
+  border-top: none;
+  padding-top: 0;
+}
+
+#confirmSend {
+  padding: 8px 16px;
+  background-color: var(--primary-color);
+  border: none;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#confirmSend::before {
+  content: "\f019"; /* Ikon download */
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+}
+
+#confirmSend:hover {
+  background-color: #182c45;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
 .alert-info {
   background-color: #cce5ff;
   border-color: #b8daff;
   color: #004085;
 }
 
+/* Responsive styles */
+.action-buttons {
+  display: flex;
+  gap: 10px;
+}
+
 @media (max-width: 768px) {
   .action-buttons {
-    display: flex;
     flex-direction: column;
-    gap: 10px;
   }
   
   .action-buttons .btn {
     width: 100%;
-  }
-}
-
-@media (max-width: 576px) {
-  .json-toolbar {
-    flex-direction: column;
-    gap: 12px;
-    align-items: flex-start;
-  }
-  
-  .json-toolbar .json-actions {
-    width: 100%;
-  }
-  
-  #copyJson {
-    width: 100%;
-    justify-content: center;
-  }
-  
-  .json-info-labels {
-    flex-direction: column;
-    gap: 8px;
   }
 }
 
@@ -650,14 +467,5 @@
   
   .table-container-wrapper {
     overflow-x: auto;
-  }
-
-  .action-buttons {
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .action-buttons .btn {
-    width: 100%;
   }
 }
